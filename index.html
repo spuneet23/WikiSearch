@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Wiki Search</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width" />
+<!-- Bootstrap -->  
+<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Google fonts  -->
+<link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<!-- custom css -->
+<link href="assets/css/wiki.css" rel="stylesheet">
+
+<!-- fontawesome icons -->
+<link href="assets/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+     <div class="search">
+      <h4 class="text-center"><a href="https://en.wikipedia.org/wiki/Special:Random">Click here for a random article</a></h4>
+      <h1 class="text-center search_icon"><span class="fa fa-search"></span></h1>
+      <input type="text" class="form-control" name="search_text" id="search_text">
+      <label for="search_text" class="search_close"><span class="fa fa-close"></span></label>
+      <h4 class="text-center search_desc">Click icon for search</h4>
+     </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-md-12 search_results">
+      
+    </div>
+  </div>
+</div>
+
+
+
+<!-- BOOTSTRAP CORE JAVASCRIPT
+Placed at the bottom for loading pages faster-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<script>
+
+
+
+ $('.search_icon').click(function(){
+      $('.search_icon').hide();
+       $('.search_desc').hide();
+      $('#search_text').show();
+      $('.search_close').show();
+ });
+
+ $('.search_close').click(function(){
+    $('#search_text').hide();
+    $('.search_close').hide();
+    $('.search_icon').show();
+    $('.search_desc').show();
+    $('.search_results').html('');
+    $('.search').removeClass('moveup');
+ });
+
+ $("#search_text").keyup(function(event){
+    if(event.keyCode == 13){
+       $('.search').addClass('moveup');
+      var search=$(this).val();
+
+      var title;
+    var desc;
+     $.ajax({
+       type:'GET',
+       url:'https://en.wikipedia.org/w/api.php',
+       data: { action:'query', format:'json' ,list:'search',srsearch:search},
+       dataType:'jsonp',
+       success: function(res) {
+        var data= res.query['search']
+          $(data).each(function(status, value){
+              title=value.title;
+              desc= value.snippet;
+            console.log('Title: '+title+'Desc'+desc);
+             $('.search_results').append('<div class="panel panel-default">'+
+              '<div class="panel-body">'+
+               '<h3>'+title+'</h3>'+
+                 '<p>'+desc+'</p>'+
+                 '</div>'+
+                '</div>');
+          });
+       }
+     });
+    }
+});
+
+</script>
+
+
+
+ </body>
+ </html>

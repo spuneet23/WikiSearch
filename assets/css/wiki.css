@@ -1,0 +1,54 @@
+/*=== GENERAL ===*/
+
+@font-face {
+  font-family: 'SEGOEUIL';
+  src: local('SEGOEUIL'), url('../fonts/SEGOEUIL.ttf') format('truetype');
+}
+
+/*-- To make right white space in mobile --*/
+
+/*=== GLOBAL ===*/
+
+
+
+body {
+  background:#092B40;
+  color:white;
+}
+
+.search {
+	margin-top:50%;
+}
+
+.search.moveup {
+	  margin-top:10%;
+}
+ 
+.search_icon {
+	cursor: pointer;
+}
+
+#search_text {
+	display: none;
+	width:50%;
+	margin-left: 25%;
+}
+
+.search_close {
+	display: none;
+	cursor: pointer;
+	position: relative;
+	left:-20;
+	top:0;
+    color:darkgreen;
+}
+
+.search_results {
+	color:#092B40;
+}
+
+a , a:hover, a:focus{
+	text-decoration: none;
+	color:white;
+}
+
